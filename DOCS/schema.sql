@@ -185,13 +185,13 @@ INSERT INTO Weather (Temperature, Conditions, ForecastDate) VALUES
     (22.5, 'Sunny', '2026-09-15 08:00:00'),
     (18.0, 'Light Rain', '2026-09-20 06:00:00');
 
--- Insert Events (3 events)
+-- Insert Events 
 INSERT INTO Events (OrganiserId, RouteId, WeatherId, Name, [Description], EventDate, [Location]) VALUES
     (1, 1, 1, 'Cape Town Cycle Tour 2026', 'Annual cycling event around the Cape Peninsula', '2026-09-15 07:00:00', 'Cape Town'),
     (2, 2, 2, 'Comrades Marathon 2026', 'Ultramarathon from Pietermaritzburg to Durban', '2026-09-20 05:30:00', 'Pietermaritzburg'),
     (1, NULL, NULL, 'Soweto Marathon 2026', 'Popular road race through Soweto', '2026-10-10 06:00:00', 'Soweto');
 
--- Insert Categories (2 per event)
+-- Insert Categories 
 INSERT INTO Categories (EventId, Name, DistanceKm, EntryFee, StartTime, MaxParticipants) VALUES
     (1, '5km Fun Ride', 5.0, 50.00, '07:15:00', 500),
     (1, '10km Challenge', 10.0, 80.00, '07:00:00', 300),
