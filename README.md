@@ -13,6 +13,10 @@ This repository contains the planning documents for the RaceDay system:
 - API Endpoint Plan (33 endpoints)
 - SQL Database Script (12 tables with sample data)
 
+
+## CI/CD
+![CI/CD build passing](docs/ci-build-passing.png)
+
 ## Video Walkthrough
 need to make
 
