@@ -15,7 +15,7 @@ This repository contains the planning documents for the RaceDay system:
 
 
 ## CI/CD
-![CI/CD build passing](docs/ci-build-passing.png)
+![CI/CD build passing]DOCS/ci-build-passing.png
 
 ## Video Walkthrough
 need to make
