@@ -16,7 +16,7 @@ This repository contains the planning documents for the RaceDay system:
 ## Video Walkthrough
 need to make
 
-## Author
-Kamogelo Motale
-PRO61621
-Rosebank International
+ Author
+**Kamogelo Motale**
+- Student Number: PRO61621
+- Institution: Rosebank International
