@@ -7,7 +7,7 @@ RaceDay is a full-stack web-based event management system designed for the South
 - **Organiser** – Can create, update, and delete events, manage categories, view enrolments, record results, upload route/weather/images.
 - **Participant** – Can browse events, enrol in events, view personal performance history, cancel enrolments, and view race details.
 
-## Part 1 – System Planning
+## Part 1 System Planning
 This repository contains the planning documents for the RaceDay system:
 - Entity Relationship Diagram (ERD)
 - API Endpoint Plan (33 endpoints)
