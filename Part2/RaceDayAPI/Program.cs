@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -8,17 +8,13 @@ using RaceDayAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add controllers
-// Add controllers
 builder.Services.AddControllers(options =>
 {
     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 
-// Password hashing
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// Configure SQL Server and Entity Framework Core
 if (!builder.Environment.IsEnvironment("Testing"))
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -26,15 +22,12 @@ if (!builder.Environment.IsEnvironment("Testing"))
             builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 
-// JWT authentication configuration
 var jwtKey = builder.Configuration["Jwt:Key"]
-?? throw new InvalidOperationException("JWT Key is missing.");
-
+    ?? throw new InvalidOperationException("JWT Key is missing.");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"]
-?? throw new InvalidOperationException("JWT Issuer is missing.");
-
+    ?? throw new InvalidOperationException("JWT Issuer is missing.");
 var jwtAudience = builder.Configuration["Jwt:Audience"]
-?? throw new InvalidOperationException("JWT Audience is missing.");
+    ?? throw new InvalidOperationException("JWT Audience is missing.");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -52,12 +45,10 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = jwtIssuer,
         ValidAudience = jwtAudience,
         IssuerSigningKey = new SymmetricSecurityKey(
-    Encoding.UTF8.GetBytes(jwtKey))
+            Encoding.UTF8.GetBytes(jwtKey))
     };
 });
 
-// Swagger configuration
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
@@ -79,10 +70,8 @@ builder.Services.AddSwaggerGen(options =>
         });
 });
 
-
 var app = builder.Build();
 
-// Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -91,11 +80,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Authentication must come before Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
 public partial class Program { }
