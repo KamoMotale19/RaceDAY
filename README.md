@@ -3,7 +3,7 @@
 
 A RESTful ASP.NET Core Web API for managing running, walking, and cycling events.
 
-![.NET Build and Test](https://github.com/KamoMotale19/RaceDAY/actions/workflows/dotnet.yml/badge.svg)
+![.NET Build and Test][(https://github.com/KamoMotale19/RaceDAY/actions/workflows/dotnet.yml/badge.svg)](https://github.com/KamoMotale19/RaceDAY/actions/runs/38958437817)
 
 ## Overview
 
