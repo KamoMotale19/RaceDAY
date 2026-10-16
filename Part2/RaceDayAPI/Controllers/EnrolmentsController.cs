@@ -9,6 +9,7 @@ namespace RaceDayAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
+    [Authorize(Roles = "Participant")]
     public class EnrolmentsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
