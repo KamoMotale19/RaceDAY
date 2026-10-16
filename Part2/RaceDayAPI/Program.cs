@@ -19,9 +19,12 @@ builder.Services.AddControllers(options =>
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // Configure SQL Server and Entity Framework Core
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnection")));
+if (!builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection")));
+}
 
 // JWT authentication configuration
 var jwtKey = builder.Configuration["Jwt:Key"]
@@ -95,3 +98,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+public partial class Program { }
