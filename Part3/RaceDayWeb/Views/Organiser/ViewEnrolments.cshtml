@@ -1,0 +1,62 @@
+﻿@model List<RaceDayWeb.Services.EnrolmentResponse>
+@using RaceDayWeb.Services
+
+@{
+    ViewData["Title"] = "Event Enrolments";
+    var categories = ViewBag.Categories as List<CategoryResponse>;
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Enrolments</h2>
+        <a asp-action="Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Guest List</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Count == 0)
+            {
+                <p class="text-muted">No participants have enrolled in this event yet.</p>
+            }
+            else
+            {
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Enrolment ID</th>
+                            <th>Participant ID</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var enrollment in Model)
+                        {
+                            // Find the category name based on the ID
+                            var catName = categories?.FirstOrDefault(c => c.CategoryId == enrollment.CategoryId)?.CategoryName ?? "Unknown";
+                            
+                            <tr>
+                                <td>#@enrollment.EnrolmentId</td>
+                                <td>Participant Profile: @enrollment.ParticipantProfileId</td>
+                                <td>@catName</td>
+                                <td>
+                                    @if (enrollment.Status == "Confirmed")
+                                    {
+                                        <span class="badge bg-success">Confirmed</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@model List<RaceDayWeb.Services.EnrolmentResponse>
+@using RaceDayWeb.Services
+
+@{
+    ViewData["Title"] = "Manage Results";
+    var categories = ViewBag.Categories as List<CategoryResponse>;
+    var results = ViewBag.Results as List<ResultResponse>;
+    int eventId = ViewBag.EventId;
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Capture Results</h2>
+        <a asp-action="Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Participant Results</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Count == 0)
+            {
+                <p class="text-muted">No participants enrolled in this event yet.</p>
+            }
+            else
+            {
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Participant ID</th>
+                            <th>Category</th>
+                            <th>Finish Time & Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var enrollment in Model)
+                        {
+                            var catName = categories?.FirstOrDefault(c => c.CategoryId == enrollment.CategoryId)?.CategoryName ?? "Unknown";
+                            var existingResult = results?.FirstOrDefault(r => r.EnrolmentId == enrollment.EnrolmentId);
+
+                            <tr>
+                                <td>Profile #@enrollment.ParticipantProfileId</td>
+                                <td>@catName</td>
+                                <td>
+                                    @if (existingResult != null)
+                                    {
+                                        <!-- If the result exists, show it in green -->
+                                        <div class="alert alert-success py-1 mb-0 d-inline-block">
+                                            <strong>@existingResult.FinishTime</strong> | Position: @existingResult.Position
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <!-- If no result, show the form -->
+                                        <form asp-action="SubmitResult" method="post" class="d-flex gap-2">
+                                            <input type="hidden" name="eventId" value="@eventId" />
+                                            <input type="hidden" name="EnrolmentId" value="@enrollment.EnrolmentId" />
+                                            
+                                            <input name="FinishTime" class="form-control form-control-sm" placeholder="HH:MM:SS" required style="width: 120px;" />
+                                            <input name="Position" type="number" class="form-control form-control-sm" placeholder="Pos (e.g. 4)" required style="width: 100px;" />
+                                            
+                                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
