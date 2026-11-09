@@ -91,3 +91,15 @@ The application is containerized using Docker. To run the application inside a D
 4. Build the Docker image:
    ```bash
    docker build -t racedayweb .
+
+## to test 
+{
+  "email": "michael.dlamini@raceday.co.za",
+  "password": "RaceDayTest123!"
+}
+
+Michael is also organiser
+
+Participant 
+thabo.nkosi@example.com and RaceDayTest123!
+
