@@ -31,17 +31,3 @@ jobs:
 
     - name: Run API Tests
       run: dotnet test Part2/RaceDayAPI.Tests/RaceDayAPI.Tests.csproj --no-restore --configuration Release
-
-## Part 3: MVC Web Application & Docker
-
-The Part 3 front-end is located in the `Part3/RaceDayWeb` folder. It is an ASP.NET Core MVC application that consumes the Part 2 API.
-
-### Docker Setup
-The application is containerized using Docker. To run the application inside a Docker container:
-
-1. Ensure **Docker Desktop** is running.
-2. Ensure the **RaceDayAPI** is running locally on port `7295`.
-3. Open a terminal in the `Part3/RaceDayWeb` directory.
-4. Build the Docker image:
-   ```bash
-   docker build -t racedayweb .
