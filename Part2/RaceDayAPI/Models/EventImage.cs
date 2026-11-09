@@ -1,4 +1,6 @@
-﻿namespace RaceDayAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace RaceDayAPI.Models
 {
     public class EventImage
     {
@@ -11,6 +13,7 @@
         public string ImageName { get; set; } = string.Empty;
 
         // Navigation property
+        [JsonIgnore]
         public Event? Event { get; set; }
     }
 }
