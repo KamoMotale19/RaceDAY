@@ -1,0 +1,63 @@
+﻿@model RaceDayWeb.Services.EventResponse
+@using RaceDayWeb.Services
+@{
+    ViewData["Title"] = "Event Details";
+    var categories = ViewBag.Categories as List<CategoryResponse>;
+}
+
+<div class="container mt-4">
+    <a asp-action="BrowseEvents" class="btn btn-outline-secondary mb-3">← Back to Events</a>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body bg-light p-4">
+
+            <!-- IMAGE BLOCK -->
+            @if (ViewBag.BannerImageUrl != null)
+            {
+                <img src="@ViewBag.BannerImageUrl" class="img-fluid rounded mb-4 shadow-sm" style="width: 100%; max-height: 400px; object-fit: cover;" alt="Event Banner" />
+            }
+            else
+            {
+                <p class="text-danger">No image URL found in ViewBag.</p>
+            }
+            <!-- END IMAGE BLOCK -->
+
+            <h1 class="text-primary">@Model.EventName</h1>
+            <p class="lead">@Model.Description</p>
+            <hr />
+            <div class="row">
+                <div class="col-md-4"><strong>Date:</strong> @Model.EventDate.ToString("dd MMM yyyy")</div>
+                <div class="col-md-4"><strong>Location:</strong> @Model.Location</div>
+                <div class="col-md-4"><strong>Distance:</strong> @Model.DistanceKm km</div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-5">Available Categories</h3>
+    <div class="row">
+        @if (categories != null && categories.Count > 0)
+        {
+            foreach (var cat in categories)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@cat.CategoryName</h5>
+                            <p class="text-muted mb-1">Distance: @cat.DistanceKm km</p>
+                            <p class="fw-bold text-success">R @cat.EntryFee</p>
+                            <form asp-action="Enrol" method="post">
+                                <input type="hidden" name="categoryId" value="@cat.CategoryId" />
+                                <input type="hidden" name="eventId" value="@Model.EventId" />
+                                <button type="submit" class="btn btn-primary w-100">Enrol Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No categories available for this event yet.</p>
+        }
+    </div>
+</div>

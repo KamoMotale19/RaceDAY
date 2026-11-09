@@ -1,0 +1,48 @@
+﻿@model List<RaceDayWeb.Services.EnrolmentResponse>
+@using RaceDayWeb.Services
+@{
+    ViewData["Title"] = "My Enrolments";
+    var events = ViewBag.Events as List<EventResponse>;
+    var categories = ViewBag.Categories as List<CategoryResponse>;
+}
+
+<div class="container mt-4">
+    <h2>My Enrolments</h2>
+    <hr />
+    
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">You haven't enrolled in any events yet. <a asp-action="BrowseEvents">Browse events now!</a></div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover shadow-sm align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var e in Model)
+                {
+                    // Look up the category to get its name and EventId
+                    var category = categories?.FirstOrDefault(c => c.CategoryId == e.CategoryId);
+                    // Look up the event using the EventId from the category
+                    var ev = events?.FirstOrDefault(x => x.EventId == category?.EventId);
+
+                    <tr>
+                        <td class="fw-bold text-primary">@(ev?.EventName ?? "Unknown Event")</td>
+                        <td>@(ev != null ? ev.EventDate.ToString("dd MMM yyyy") : "N/A")</td>
+                        <td>@(category?.CategoryName ?? "Unknown Category")</td>
+                        <td>
+                            <span class="badge bg-success">@e.Status</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
