@@ -43,3 +43,51 @@ Participants cannot create events or view other participants' data.
 - GitHub Actions CI
 
 ## Project Structure
+
+name: .NET Build and Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore Part2/RaceDayAPI.slnx
+
+    - name: Build API
+      run: dotnet build Part2/RaceDayAPI.slnx --no-restore --configuration Release
+
+    - name: Build MVC Web App
+      run: dotnet build Part3/RaceDayWeb/RaceDayWeb.csproj --configuration Release
+
+    - name: Run API Tests
+      run: dotnet test Part2/RaceDayAPI.Tests/RaceDayAPI.Tests.csproj --no-restore --configuration Release
+
+## Part 3: MVC Web Application & Docker
+
+The Part 3 front-end is located in the `Part3/RaceDayWeb` folder. It is an ASP.NET Core MVC application that consumes the Part 2 API.
+
+### Docker Setup
+The application is containerized using Docker. To run the application inside a Docker container:
+
+1. Ensure **Docker Desktop** is running.
+2. Ensure the **RaceDayAPI** is running locally on port `7295`.
+3. Open a terminal in the `Part3/RaceDayWeb` directory.
+4. Build the Docker image:
+   ```bash
+   docker build -t racedayweb .
